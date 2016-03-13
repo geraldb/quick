@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+<h1 class="title">{{ site.title }}</h1>
+<p style="text-align: center;">by {{ site.author.name }}</p>
+
+{% for chapter in site.chapters %}
+  <a name="{{ forloop.index }}"></a>
+  <h2>{{ chapter.title }}</h2><!-- use h2 - why? why not? -->
+  {{ chapter.content }}
+{% endfor %}
+
+
+<h3 class='section-header'>About this Book</h3>
+<p>The source files from which this book is generated can be found on
+<a href="{{ site.github.url }}">GitHub</a>.</p>
+

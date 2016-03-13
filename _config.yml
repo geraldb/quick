@@ -1,0 +1,21 @@
+######################
+# book (meta) info
+
+title: Strange Case of Dr. Jekyll and Mr. Hyde
+author: 
+  name: Robert Louis Stevenson
+
+github:
+  url: "https://github.com/bookdesigns/book-rust"
+
+
+########
+# more settings
+
+collections:
+  chapters:
+      output: false
+
+exclude:
+- README.md
+

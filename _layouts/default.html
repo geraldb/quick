@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }} by {{ site.author.name }}</title>
+
+    <link rel="stylesheet"  href="css/rustbook.css">
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+                <div id="nav">
+                    <button id="toggle-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+    
+  {% for chapter in site.chapters %}
+  <li>
+    <a href="#{{ forloop.index }}"><b>{{ forloop.index }}.</b> {{ chapter.title }}</a>
+  </li>
+  {% endfor %}
+
+</ul>
+</div>
+
+<div id='page-wrapper'>
+<div id='page'>
+
+{{ content }}
+
+</div></div>
+
+<script src='js/rustbook.js'></script>
+ 
+</body>
+</html>
