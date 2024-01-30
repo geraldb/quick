@@ -1,0 +1,147 @@
+## ordinals
+
+try to get address from utxo ??
+- check the meaning of address in ordinals.com -
+-  is address of current or minter/genesis output?
+
+
+1) inscription no transfer / sell
+
+tx       ??
+address  ??
+location ??
+
+2) inscription with transfers / sells
+
+tx   ??
+address ??  - change to new owner?
+location ?? - change to new location (tx) owner
+
+
+
+possible more than one inscription per output?
+
+
+ordinals id = txid + vout index  (why v? not out index? different?)
+vout == vector of outputs??? 
+
+add table transactions or txns or txs? 
+  tx
+   - inputs
+   - outputs
+
+
+txid + vout  (primary keys)
+- value (in sats)
+- address ??
+- script pubkey or pkscript ??   - "lock(ing) script" 
+
+add 
+  "spent": true,
+   "spender": {
+      "txid": "ed9be6f868f35b55670ccd89c77008d3c8f1e521d13b0b9a2e9019261290d471",
+      "input": 86
+    }
+
+add table blocks??? - why? why not?
+
+
+
+vout is the 0 based output index. 
+It can be more than just 0 or 1, 
+but those tend to be the most common because people don't make transactions with lots of outputs.
+
+
+(block) tx explorers
+https://blockstream.info/tx/39b6bcf049fbfba73c2e594327cafd4f93b1c23979e138d4c56ab3b7d04172ad
+https://mempool.space/tx/39b6bcf049fbfba73c2e594327cafd4f93b1c23979e138d4c56ab3b7d04172ad
+https://www.blockchain.com/explorer/transactions/btc/39b6bcf049fbfba73c2e594327cafd4f93b1c23979e138d4c56ab3b7d04172ad
+
+names
+block_height
+block_timestamp
+size  (in bytes)
+vsize (=virtual size) in vb
+
+
+what is? 
+script pubkey  - OP_PUSHNUM_1 OP_PUSHBYTES_32
+- can get address (in lock(ing) script)?
+he leading OP_PUSHNUM_1 indicates that it is a version 1 output. It shows up as "Type: UNKNOWN", because there are currently no spending rules for version 1 outputs active on the network. Therefore, this output could be spent by anyone, as long as they get a miner to include a non-standard transaction in their block that claims the funds.
+
+We are anticipating the activation of the Taproot softfork in November, 
+which will give exactly this output pattern meaning (see BIP341): 
+Pay to Taproot (P2TR) outputs will be version 1 native segwit outputs 
+with a 32-byte witness program that consists only of a public key.
+
+
+OP_PUSHNUM_1 OP_PUSHBYTES_32
+32-byte is public key of owner!!! - address gets "derived"??
+
+ Bitcoin address in Native SegWit (Bech32) format
+
+For example: bc1qf3uwcxaz779nxedw0wry89v9cjh9w2xylnmqc3
+
+Addresses begin with "bc1", the Bech32 encoded address format developed for SegWit. avoiding confusion and being more readable. Because fewer characters are required in the address, it is easier and more efficient to calculate the address using Base32 encoding rather than the traditional Base58. The data can be stored more tightly in the QR code, and Bech32 provides greater security with better optimized checksum and error detection codes to minimize the chance of invalid addresses.
+
+
+
+Taproot addresses begin with the characters bc1p (p!!!!).
+ Taproot is technically an upgraded version of Segwit, 
+and its addresses are encoded using a modified version of bech32 known as bech32m.
+
+https://bitcoincore.org/en/segwit_wallet_dev/
+
+A segwit-compatible wallet MUST support the original transaction format, as nVersion|txins|txouts|nLockTime.
+A segwit-compatible wallet MUST also support the new serialization format, as nVersion|marker|flag|txins|txouts|witness|nLockTime
+
+---
+Pay-to-Witness-Public-Key-Hash (P2WPKH)  -- note: NOT using taproot!!!! would be OP_1!!!! and PUSHBYTES_32!!???
+- get address - how? possible form public-key-hash?
+
+scriptpubkey (asm)
+OP_0
+OP_PUSHBYTES_20 bb9e571190a620e3d5ffe2a7858e969871f25f65
+
+
+3. Perform RIPEMD-160 hashing on the result of SHA-256:
+Code:
+751e76e8199196d454941c45d1b3a323f1433bd6
+bb9e571190a620e3d5ffe2a7858e969871f25f65
+
+	
+Step by step guide to go from public key to a Bech32 encoded address
+https://bitcointalk.org/index.php?topic=4992632
+
+
+bb9e571190a620e3d5ffe2a7858e969871f25f65 is HASH160 of public key (=> 20 bytes)
+HASH160 of the public key match the 20-byte witness program
+The 160-bit hash value is created by applying SHA-256 and RIPEMD160 on the public key.
+
+is??? bc1qhw09wyvs5csw840lu2nctr5knpclyhm9hwv9ul  
+
+V0_P2WPKH
+
+HRP: bc
+DATA: 00170e0f050e040c101418100e07150f1f1c0a13180b0314161301181f04171b05
+TYPE: bech32
+
+
+bech32 encode bc 00170e0f050e040c101418100e07150f1f1c0a13180b0314161301181f04171b05 bech32
+=> bc1qhw09wyvs5csw840lu2nctr5knpclyhm9hwv9ul
+
+try https://en.bitcoin.it/wiki/Bech32  to calculate bech32!!
+https://github.com/azuchi/bech32rb
+
+hrp = 'bc'
+data = 
+[ 0, 14, 20, 15,  7, 
+ 13, 26,  0, 25, 18, 
+  6, 11, 13,  8, 21, 
+  4, 20,  3, 17,  2, 
+ 29,  3, 12, 29,  3, 
+  4, 15, 24, 20,  6, 
+ 14, 30, 22] -- 33 bytes??
+
+bech = Bech32.encode(hrp, data, Bech32::Encoding::BECH32)
+=> bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4

@@ -1,0 +1,143 @@
+check
+https://github.com/bgrins/TinyColor
+https://bgrins.github.io/TinyColor/
+
+check  lighten, darken funcs!!!
+ 
+-- add to pixelart-colors - why? why not?
+
+
+
+----
+
+hsv - lighten   - hsl ( s - down to 0, l - up to 100)
+0 80 80  ->    15% -> 0 69 85
+               20% -> 0 64 86
+               40% -> 0 46 89
+               50% -> 0 38 91
+0  0  0  ->    15% -> 0  0 15
+               20% -> 0  0 20
+               50% -> 0  0 50 
+0  50 50 ->    20% -> 0  50 58
+               50% -> 0  26 79 
+
+0  100 100 ->  20% -> 0 80 100
+               50% -> 0 50 100            
+               
+0  100 80  ->  10%  -> 0 100 92
+               20%  -> 0  96 100
+               50%  -> 0  60 100
+
+https://pinetools.com/lighten-color
+
+https://community.fabric.microsoft.com/t5/Desktop/Calculate-shades-of-theme-colors/m-p/887010
+
+##
+HEX
+
+Category
+
+RGB
+
+HSV
+
+#cc1144
+
+Specified color
+
+(204,17,68) rgb
+
+344,92,80  hsv
+
+
+#eba0b4
+
+60% lighter
+
+(235,160,180) rgb
+
+344,32,92  hsv
+
+#e0708f
+
+40% lighter
+
+(224,112,143) rgb
+
+343,50,88  hsv
+
+#d64169
+
+20% lighter
+
+(214,65,105)
+
+344,70,84
+
+#990d33
+
+25% darker
+
+(153,13,51)
+
+344,92,60
+
+#660922
+
+50% darker
+
+(102,9,34)
+
+344,91,40
+
+ 
+
+The formula of lighter shows:
+
+‘S’ of color(60% lighter) = [‘S’ of specified color]*(1-60%)
+
+‘S’ of color(40% lighter) = [‘S’ of specified color]*(1-40%)
+
+‘S’ of color(20% lighter) = [‘S’ of specified color]*(1-20%)
+
+ 
+
+‘V’ of color(60% lighter) = [V’ of specified color]*(1-60%)+100*60%
+
+‘V’ of color(40% lighter) = [V’ of specified color]*(1-40%)+100*40%
+
+‘V’ of color(20% lighter) = [V’ of specified color]*(1-20%)+100*20%
+
+  1-20% = ??
+   +  100*20% = 20
+
+And the ‘H’ of ‘HSV’ is the same with specified color.
+
+ 
+
+The formula of darker shows:
+
+‘V’ of color(25% darker) = [‘V’ of specified color]*(1-25%)
+
+‘V’ of color(50% darker) = [‘V’ of specified color]*(1-50%)
+
+ 
+
+And the ‘H’/’S’ of ‘HSV’ are the same with specified color.
+
+
+--
+343,50,93
+
+40% lighter
+
+50 * (1-40%) = 29
+
+343,29,96
+
+#f192ad
+
+20% lighter
+
+343,39,95
+

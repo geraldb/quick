@@ -1,0 +1,21 @@
+#############
+# ignore all .env files
+.env
+
+###
+# ignore cache directories  (eg. for gems api cache etc.)
+cache/
+
+#############
+# ignore all tmp directories
+
+tmp/
+tmp2/
+tmp3/
+tmp4/
+tmp5/
+
+
+#############
+# ignore all (sqlite) dbs for now - why? why not?
+*.db
