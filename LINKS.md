@@ -2,13 +2,6 @@
 # Links
 
 
-## (open) data (wrangling) tools
-
-- <https://www.awk.dev/eda.html>
-- <https://dev.to/dendihandian/installing-sqlite3-in-windows-44eb>
-
-
-
 ## misc
 
 - <https://jvns.ca/blog/2023/11/06/rebasing-what-can-go-wrong-/>
@@ -23,6 +16,10 @@ Vitalik
 - <https://vitalik.eth.limo/general/2021/01/05/rollup.html>
 - <https://vitalik.eth.limo/general/2023/10/31/l2types.html>
 - <https://vitalik.eth.limo/general/2023/09/30/enshrinement.html>
+
+
+ethereum layer 2 intro -
+<https://blog.infura.io/post/the-developers-guide-to-ethereum-l2-networks>
 
 
 
@@ -67,6 +64,11 @@ more
 
 - <https://github.com/adshao/ordinals-indexer>
 - <https://medium.com/coinmonks/introducing-ordinals-theory-protocol-bitcoin-nfts-8f02f70f4657>
+
+bitcoin ordinal - hiro orohook intro -
+<https://www.hiro.so/blog/introducing-ordhook-a-reliable-index-for-ordinals>
+
+
 
 
 
