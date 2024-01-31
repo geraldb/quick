@@ -1,10 +1,11 @@
 ---
-geraldb (8):
+geraldb (9):
 - geraldb
 - geraldb.github.io
 - help
 - mailarchive
 - notes
+- quick
 - reddit
 - sandbox
 - talks
@@ -63,9 +64,6 @@ book-templates (4):
 - bookfile
 - football
 - world
-bookdesigns (2):
-- book-git
-- book-rust
 chooseaconduct (1):
 - chooseaconduct.github.io
 cryptocopycats (17):
@@ -385,11 +383,12 @@ opensport (6):
 openwine (2):
 - at-austria
 - build
-orc721 (10):
+orc721 (11):
 - lostfiles.starter
 - market
 - monkes.starter
 - monkes21
+- nodepunks
 - orc721.github.io
 - orditroops.starter
 - punks12px
