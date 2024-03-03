@@ -52,6 +52,24 @@ $ git clone c:\backup2024\0xCompute\punks12px.vol2
 
 ## misc(ellaneous)
 
+
+check if works with "escaped / special" characters e.g. (leading dot) ".github"
+
+note: saved in yaml in quotes
+
+```
+rubycocos:
+- ".github"
+```
+
+checkout 
+
+```
+$ git clone c:\backup2024\rubycocos\.github
+```
+
+
+
 check if works if update repo gets recycled / replaced e.g. 
 
 ```
