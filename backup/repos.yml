@@ -27,9 +27,11 @@ yorobot (17):
 - workflow
 - world.db
 - yorobot
-0xCompute (5):
+0xCompute (7):
 - punks12px
+- punks12px.vol1
 - punks12px.vol2
+- punks24px
 - rubidity
 - rubidity.review
 - rubysol.starter
@@ -380,10 +382,9 @@ opensport (6):
 - opensport.github.io
 - rugby.db
 - ski.db
-openwine (2):
+openwine (1):
 - at-austria
-- build
-orc721 (11):
+orc721 (10):
 - lostfiles.starter
 - market
 - monkes.starter
@@ -392,7 +393,6 @@ orc721 (11):
 - orc721.github.io
 - orditroops.starter
 - punks12px
-- punks24px
 - rocks.starter
 - sandbox
 ordbase (11):
