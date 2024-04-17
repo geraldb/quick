@@ -27,10 +27,9 @@ yorobot (17):
 - workflow
 - world.db
 - yorobot
-0xCompute (7):
+0xCompute (6):
+- ethscribe
 - punks12px
-- punks12px.vol1
-- punks12px.vol2
 - punks24px
 - rubidity
 - rubidity.review
@@ -235,6 +234,8 @@ manuscripts (3):
 markupmadness (2):
 - markupmadness
 - markupmadness.github.io
+monkes21 (1):
+- monkes21
 mundimark (14):
 - awesome-books
 - awesome-kramdown
@@ -388,11 +389,11 @@ orc721 (10):
 - lostfiles.starter
 - market
 - monkes.starter
-- monkes21
 - nodepunks
 - orc721.github.io
 - orditroops.starter
 - punks12px
+- punks24px
 - rocks.starter
 - sandbox
 ordbase (11):
@@ -480,6 +481,7 @@ profilepic (3):
 - originals
 - profilepic
 - text-to-image
+punks24px (0): []
 quikstart (7):
 - gem-starter-template
 - gem-starter-template-hoe
