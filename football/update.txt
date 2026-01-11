@@ -1,0 +1,16 @@
+update notes (for json)
+-----------------------
+
+step 1 
+  build euro2024.db  -  build/build_euro2024.rb
+
+step 2 
+  football.json  -  sandbox/gen_euro.rb
+ 
+step 3
+  update repo
+
+----
+  todo: 
+  - [ ] fix (group) standings!!!!
+  - [ ] maybe add squads in teams - why? why not?

@@ -1,0 +1,148 @@
+   "openfootball/champions-league"]>
+!! ERROR - no league (config) found for >de.4.n<; sorry 
+--->   to message add   sorry; update football-timezones
+-->  Maybe is in Football timezones? 
+
+["de.4.n"]
+==> [1/1] >>>  de.4.n  <<< ...
+  1 LEAGUE (by code) match(es):
+    [<League CLUBS: Regionalliga Nord, Germany (GER)>]
+
+----
+
+add  new max.csv  config for Checking on repos
+-     Exit if spec Returns Zero on repo?  repo missing/not yet cloned e.g.  league-starter, etc
+
+
+-----------
+
+==> [1/61] reading >C:/sports/openfootball/austria/2010-11/1-bundesliga.txt<...
+gems/sportdb-formats-2.1.3/lib/sportdb/formats/quick_match_linter.rb:61:in `parse': uninitialized constant SportDb::QuickMatchLinter::QuickLeagueOutlineReader (NameError)
+
+    secs = QuickLeagueOutlineReader.parse( @txt )
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+Did you mean?  SportDb::QuickLeagueOutline
+
+
+------------------
+
+check if np.dot swaps the args to matrix-Vector? check if is same as vector-matrix multiplication?
+
+
+When a 1-D array (vector) is multiplied by a 2-D array (matrix), numpy.dot() computes a matrix-vector multiplication. The result will be a new vector.
+
+Example:
+v = np.array([1, 2])
+M = np.array([[1, 3], [2, 4]])
+
+result = np.dot(v, M)
+print(result)
+Output:
+
+[ 5 11]
+
+----
+
+
+todo:
+league periods - add to db Schema
+  - alt_names !!! like in leagues 
+
+  - [ ]  update sportdb-catalogs & search gem ( update fbq - add LEAGUE_PERIOD (by code) lookup)
+  - [ ]  check alt codes from tipp3 with new search/catalogs lookup!!!!
+
+
+league codes
+-  add custom codes to league periods - why? why not?
+     e.g.  eng pl  for  Premier League (England)
+
+sco, Scotland (SCO) - Premiership
+   (alt) names - Schottland Premiership [de] | sco.ps
+    3 code(s) - sco sco1 scops
+  - sco.1, -   " / Scottish Premiership,  1-premiership
+      2 code(s) - sco1 sco
+
+eng, England (ENG) - Premier League
+   (alt) names - FA Premier League | EPL | eng.pl
+    6 code(s) - en en1 eng eng1 engpl epl
+  - eng.1, 1992/93-   " / English Premier League,  1-premierleague
+      4 code(s) - eng1 eng en en1
+      1 name(s) - englishpremierleague
+
+eng, England (ENG) - Championship (4)
+   (alt) names - EFL Championship | Football League Championship | eng.cs | Division 1 | Division One | First Division | Football League First Division | Div 1 | Football League | English Football League
+    7 code(s) - en en1 en2 eng eng1 eng2 engcs
+  - eng.2, 2004/05-   " / English Championship,  2-championship
+      2 code(s) - eng2 en2
+      1 name(s) - englishchampionship
+  - eng.2, 1992/93-2003/04    Division 1 / English Division 1,  2-division1
+      2 code(s) - eng2 en2
+      1 name(s) - englishdivision1
+  - eng.1, 1892/93-1991/92    Division 1 / English Division 1,  1-division1
+      4 code(s) - eng1 eng en en1
+      1 name(s) - englishdivision1
+  - eng.1, 1888/89-1891/92    Football League / English Football League,  1-footballleague
+      4 code(s) - eng1 eng en en1
+      1 name(s) - englishfootballleague
+
+
+todos
+
+- [ ] add fbtest tool / gem - to check/validate/verify number of teams, matches, goals, etc.
+- [ ] add to fbup repo a new CALENDAR.md page with upcoming Football highlights
+
+- [ ] add/update fbclubs tool in fbcat
+- [ ] check parser -   requires Season gem? -  move outline Reader to sportdb-structs?
+- [ ] update league code check and league names, club names etc.   (sync tipp3 datasets?)
+
+
+(double) check England names e.g.
+!! 6 PARSE ERRORS in 132 datafile(s)
+[["C:/sports/openfootball/england/2004-05/4-league2.txt", "NAME ERROR - no team match found for >Chester City<"],
+ ["C:/sports/openfootball/england/2005-06/4-league2.txt", "NAME ERROR - no team match found for >Chester City<"],
+ ["C:/sports/openfootball/england/2006-07/4-league2.txt", "NAME ERROR - no team match found for >Chester City<"],
+ ["C:/sports/openfootball/england/2007-08/4-league2.txt", "NAME ERROR - no team match found for >Chester City<"],
+ ["C:/sports/openfootball/england/2008-09/4-league2.txt", "NAME ERROR - no team match found for >Chester City<"],
+ ["C:/sports/openfootball/england/2016-17/5-nationalleague.txt",
+  "NAME ERROR - no team match found for >North Ferriby United<"]]
+
+
+todos
+- [x]  try to build /england with sportdb (gem) - working?
+- [x]  try fbtxt2json  in /england repo   
+
+
+- [x]  try/add classics.csv update with wfb & fbup !!!
+
+----------------------------
+
+- [x] update sportdb-writers  -  remove dep on sportdb-quick only use sportdb-structs
+- [x] update fbdat/footballdata-api !!!
+
+
+- [x] publish (new) fbtxt gem
+- [x] publish football-timezones gem
+
+- [x]  use LeagueSet/Leagueset   instead of old Datasets in football-timezones!!!
+
+
+more
+- [ ] internationals dataset
+- [x] merge csv into (core) structs?
+- [x] check footballdata how convert (to csv) works?
+
+
+move deps to NOTES in repo!!!
+
+sportdb-structs
+  - depends on cocos, alphabets, score-formats, season-formats
+sportdb-writers
+  - depends on football-timezones, sportdb-quick
+football-timezons
+  - depends on cocos, season-formats, tzinfo (plus add tzinfo-data!!!)
+sportdb-quick
+  - depends on logutils, sportdb-parser, sportdb-structs
+sportdb-parser
+  - depends on cocos, season-formats 
+
+

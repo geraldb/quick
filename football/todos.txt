@@ -1,0 +1,1444 @@
+----
+todos
+- [ ] add auto flag to schema/db for Clubs!!!
+
+- [ ]  move csv (support/machinery) from Formats to  ~~Writers~~!!!!
+- [ ]  Maybe move league config from Writers to timezones - why? why not?
+
+- [ ] publish new gem updates (structs/models/readers + data + timezones)
+
+---
+- [ ] fix in wfb reader!!!
+==> 959/5155 C:/sports/cache.wfb.txt/2010/cn.1.txt...
+league >CN 1<, season >2010<
+
+add club: liaoninghongyun, Liáoníng Hóngyùn, China (cn)
+- SQLite3::ConstraintException: UNIQUE constraint failed: teams.key (ActiveRecord::RecordNotUnique)
+
+--  update SYNC!!! 
+     - use lookup by key for club!!! (unaccent etc.) 
+
+---
+in timezones - Change Datasets to class LeagueSet/LeagueSheet why? why not?
+    module Datasets
+    def self.parse_args( args )
+
+---
+
+- [ ] update/prepare repo /england !!!!!!!
+
+---
+
+wfb add more (generic) Dummy Team renames e.g.
+ "Verlierer HF 1",
+ "Verlierer HF 2"
+
+------
+4 todos
+- [x] update fbdat
+- [x] add leagues
+- [ ] force update wfb  - use new wfbup or wfbprep/wfbcache --force
+- [ ] update /England
+---
+-  sign-up  openai
+
+----
+update league Reader with league_periods and tier(keys) !!!
+
+for now "Export"  Tier to csv for reuse (and easier Debugging) in writer
+- later re(use) database directly !!!!
+
+db
+league - has
+
+league_periods / history / pages / records 
+      _epochs 
+                   (canonical) tier_key # e.g. eng.1
+                   start_season, end_season
+                   slug,
+                   (canonical) name,
+  qualified Name  qname ?  incl. Country qualifier/prefix 
+                   uniq_name | qname | qn | fn | full_name | long_name  ???,
+                   prev (old) Name  (optional)   # if renamed?
+
+
+##
+##  for adding match only tier key needed
+##         e.g. eng.1 -  2019/20 
+
+tier / tiers   e.g.   
+  - country
+  - key   ## eng.1, eng.cup   # must be unique 
+  - level (on pyramid)   
+
+
+query - get all premier league Matches
+ 
+
+ event_key = tier+Season  e.g.   eng.1+2017/18
+  
+ league    has many Events e.g.
+    pl   - eng.1+2017/18
+   via tiers
+
+
+----
+todo - add row column to csv
+         for original table row starting with 1,2,3, etc.
+----
+update Pretty print (pp)
+- City e.g.  #<Sports::City:0x000001b44d2e5e20
+               @alt_names=[],
+               @country=<Country: de - Germany (GER)|Deutschland [de], fifa|uefa)>,
+               @key="koln_de",
+               @name="Köln">
+- League - remove key from pp (like in club)!!!
+- Ground e.g. #<Sports::Ground:0x000001a15fbe1098
+       @address="Olympiapark München, Spiridon-Louis-Ring 25 // 80809 München",
+  @alt_names=[],
+  @city=
+   #<Sports::City:0x000001a16608c358
+    @alt_names=[],
+    @country=<Country: de - Germany (GER)|Deutschland [de], fifa|uefa)>,
+    @key="munchen_de",
+    @name="München">,
+  @country=<Country: de - Germany (GER)|Deutschland [de], fifa|uefa)>,
+  @district=nil,
+  @key="olympiastadium_munchen_de",
+  @name="Olympiastadium">  
+
+---
+
+add Webcache.read_meta() get headers as hash e.g.
+
+date: Mon, 23 Sep 2024 08:25:23 GMT
+content-type: text/html; charset=UTF-8
+transfer-encoding: chunked
+connection: close
+expires: Mon, 23 Sep 2024 08:25:23 GMT
+cache-control: public, max-age=1000
+vary: Accept-Encoding
+x-cache: Miss from cloudfront
+via: 1.1 a746325e2c0a55fa6c56e06293f59b40.cloudfront.net (CloudFront)
+x-amz-cf-pop: VIE50-P2
+x-amz-cf-id: 0gi-X0O6oRqhTHXq8zvxu7ZLo-3wZhfJAjuwHvdu0OduIKhR4XVMtQ==
+cf-cache-status: EXPIRED
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=7nkV%2FVvw4aFupJVciAAVkcnAau%2FlH1HmfC2IdGoB%2F9%2BFGm7m1K%2BoV0e50MeVt%2FRVDRD5248w8i2O9ZTOUVaM6E8S6UYhFcnIHjukdYJSraptsVHZlw1rc2WRiB7D0bGDOirSE%2BI%3D"}],"group":"cf-nel","max_age":604800}
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+server: cloudflare
+cf-ray: 8c7924d0e8dd5a9b-VIE
+
+
+---
+FINISHED  Sun Aug 22 2021 13:00 FC Girondins de Bordeaux (BOR) - Angers SCO (ANG)         3 - REGULAR_SEASON
+  REGULAR                                     1-1 (1-1)
+FINISHED  Sun Aug 22 2021 15:00 Stade Rennais FC 1901 (REN) - FC Nantes (NAN)          3 - REGULAR_SEASON
+  REGULAR                                     1-0 (0-0)
+!!! assert failed - unknown status - CANCELLED
+
+fix in fbdat !!!
+
+fbdat - add FIFA codes to uefa.cl and copa.l !!!
+
+fix 
+!! ERROR: unsupported match status >IN_PLAY< - sorry:
+-- reset to TIMED (until FINISHED)!!!
+
+{"area"=>{"id"=>2224, "name"=>"Spain", "code"=>"ESP", "flag"=>"https://crests.football-data.org/760.svg"},
+ "competition"=>
+  {"id"=>2014,
+   "name"=>"Primera Division",
+   "code"=>"PD",
+   "type"=>"LEAGUE",
+   "emblem"=>"https://crests.football-data.org/laliga.png"},
+ "season"=>{"id"=>2292, "startDate"=>"2024-08-18", "endDate"=>"2025-05-25", "currentMatchday"=>5, "winner"=>nil},
+ "id"=>498655,
+ "utcDate"=>"2024-09-15T12:00:00Z",
+ "status"=>"IN_PLAY",
+
+
+----
+fix
+==> converting to .csv
+!! ERROR: no timezone found for world 2022
+
+---
+fix
+
+match as_json  - use string keys NOT Symbols in sportdb/stucts!!!
+----
+
+fix
+ [info] read football dataset (zip)
+ 'openfootball/italy', '2024-25'
+** !!! ERROR !!! no club match for (canonical) name >Spezia Calcio              SPE< in props row:
+{"Key"=>"spezia", "Name"=>"Spezia Calcio              SPE", "Code"=>nil}
+
+----
+
+fix  World 
+league >World Cup<, season >1950<
+  Looks up  Event info for 1930???
+event info found:
+  using start date from event:
+#<Sports::EventInfo:0x000001fe0ac4e708
+ @end_date=Wed, 30 Jul 1930,
+ @goals=70,
+ @league=<League INTL NATIONAL TEAMS: worldcup - World Cup>,
+ @matches=18,
+ @season=1930,
+ @start_date=Sun, 13 Jul 1930,
+ @teams=13>
+Sun, 13 Jul 1930
+---
+
+fix - Duration date???
+
+[debug] parsing round def: >[[:round_def, "Final Round"], [:duration, "9 July - 16 July", {:start=>{:m=>7, :d=>9}, :end=>{:m=>7, :d=>16}}]]<
+[debug]     start_date: 1931-07-09
+[debug]     end_date:   1930-07-16
+[debug]     name:    >Final Round<
+[debug]     knockout_flag:   false
+[debug] parsing group header: >[:group, "Group F"]<
+[debug] parse match: >[[:num, 17], [:date, "9 July", {:m=>7, :d=>9}], [:team, "Uruguay"], [:score, "2-2", {:ft=>[2, 2]}], [:team, "Spain"], [:"@"], [:geo, "Estádio do Pacaembu"], [:","], [:geo, "São Paulo"]]<
+!! PARSE ERROR - no matching round found for match date:
+Thu, 09 Jul 1931
+
+----
+(28) Sat Jun/23 18:00        South Korea   1-2 (0-1)   Mexico       @ Rostov Arena, Rostov-on-Don (UTC+3)
+            [Son Heung-min 90+3'; Carlos V. 26' (pen.) J. Hernández 66']
+
+--   Carlos V.  =>  V. gets tokenized as v. !!!
+--  use rsssf technique to use 
+       stricter names and different mode/context or Goals!!!
+
+-- quick Workaround Change Carlos V. to  Carlos Vela !!!
+
+---
+
+fix  
+#  how to deal w/ walkout ??
+
+# include walkout? why? why not?
+#  what match number to use?  - same as replay? 24+3 ?
+# - use no match number?  (add new num for match number?) use pos only for internal-use (e.g sort order)?
+#
+# 5 June     Sweden         - (*)        Austria            @ Stade Gerland, Lyon
+# (*) w/o - walkout
+
+
+in Cup.txt 1934--italy in worldcup
+
+---
+
+fix Clubs duplicates:
+
+- - **2** clubs for **`bsvrehden`**:
+  - BSV Schwarz-Weiß Rehden, Rehden, Germany (de)
+  - BSV SW Rehden, Rehden, Germany (de)
+- **2** clubs for **`bsvschwarzweissrehden`**:
+  - BSV Schwarz-Weiß Rehden, Rehden, Germany (de)
+  - BSV SW Rehden, Rehden, Germany (de)
+
+- Alianza FC, city:sansalvador, El Salvador (sv)
+
+- **2** clubs for **`lorcafc`**:
+  - Lorca FC, ?, Spain (es)
+  - Lorca FC (2003-2022), Lorca, Spain (es)
+
+---
+
+fix Worldcup  parse!!! e.g.
+[{:league=><League INTL NATIONAL TEAMS: worldcup - World Cup>,
+  :season=>1930,
+  :stage=>nil,
+  :lines=>
+   ["Group 1  |  Argentina      Chile      France     Mexico",
+    "Group 2  |  Yugoslavia     Brazil     Bolivia",
+    "Group 3  |  Uruguay        Romania    Peru",
+    "Group 4  |  United States  Paraguay   Belgium",
+    "Matchday 1   | 13 July",
+    "Matchday 2   | 14 July",
+    "Matchday 3   | 15 July",
+    "Matchday 4   | 16 July",
+    "Matchday 5   | 17 July",
+    "Matchday 6   | 18 July",
+    "Matchday 7   | 19 July",
+    "Matchday 8   | 20 July",
+    "Matchday 9   | 21 July",
+    "Matchday 10  | 22 July",
+    "Semi-finals  | 26 July - 27 July",
+    "Final        | 30 July",
+    "Group 1",
+
+[debug] parse match: >[[:|], [:text, "13 July"]]<
+!! PARSE ERROR - unexpected node type | in match line; got:
+[:|]
+
+---
+
+-  merge sportdb-sync into Readers for now!!!
+-   and rename sportdb-sync to sportdb-sync-v0
+
+
+---
+- [ ] retry/clean-up
+      sportdb-readers - sandbox scripts!!!
+
+---
+
+England
+parse error - date
+[debug] date header: >[:date, "Mon Feb/29", {:m=>2, :d=>29, :wday=>1}]<
+C:/sports/sportdb/sport.db/sportdb-formats/lib/sportdb/formats/match/match_parser.rb:290:in `initialize': invalid date (Date::Error)
+
+      Date.new( y,m,d )  ## y,m,d
+
+in Season 2015/16 ???   - 2016-02-29   
+   - https://github.com/openfootball/england/blob/master/2015-16/2-championship.txt
+---
+
+Sabail
+  | Səbail FK   ### todo/fix - add  ə to unaccent ???
+  | Sabail FC
+  | Sabail FK
+
+in  azerbaijan
+----
+
+for normalize add  ("interpunct") -see andora - why? why not?
+    | Constel·lació
+  | Constellació
+ 
+---
+
+todo/fix Alphabets - rou (Romania)
+
+Iași (livresc Iașii, respectiv Târgu' Ieșilor)
+--check if I is "Special" here - renders different on Wikipedia here
+--> https://ro.wikipedia.org/wiki/Ia%C8%99i
+<b>Iași</b> (livresc <i>Iașii</i>, respectiv <i>Târgu' Ieșilor</i>)
+
+or   | Oţelul
+  | Oțelul   ### !!!!!!!
+or  
+  | CS Gaz Metan Mediaș
+  | CS Gaz Metan Mediaş  
+## todo/check: unaccent ro - auto-generate with cedilla from with ...
+
+FC Petrolul Ploiești, Ploiești
+  | Petrolul | Petrolul Ploiesti | Petrolul Ploiești
+  | FC Petrolul Ploieşti
+
+
+eg.
+
+  | Tîrgu Mureş | Tîrgu Mureş
+in 
+ş != ş  - add to translit
+or Unicode normalize required in string??
+
+ASA Târgu Mureș (2008-2018),    Târgu Mureș
+  | Târgu Mureș | ASA Târgu Mureş | Târgu Mureş
+  | ASA Tîrgu Mureş
+  | FCM Târgu Mureş
+
+-----
+
+- publish 3 gems
+  - [ ] parser
+  - [ ] parser-rsssf
+  - [ ] rsssf
+
+----
+rsssf tool
+do NOT duplicate Output of datafiles
+
+ found 12 match txt datafiles in ..\rsssf\espana
+["C:/sports/rsssf/espana/2010-11/1-liga.txt",
+ "C:/sports/rsssf/espana/2010-11/cup.txt",
+ "C:/sports/rsssf/espana/2011-12/1-liga.txt",
+ "C:/sports/rsssf/espana/2011-12/cup.txt",
+ "C:/sports/rsssf/espana/2012-13/1-liga.txt",
+ "C:/sports/rsssf/espana/2012-13/cup.txt",
+ "C:/sports/rsssf/espana/2013-14/1-liga.txt",
+ "C:/sports/rsssf/espana/2013-14/cup.txt",
+ "C:/sports/rsssf/espana/2014-15/1-liga.txt",
+ "C:/sports/rsssf/espana/2014-15/cup.txt",
+ "C:/sports/rsssf/espana/2015-16/1-liga.txt",
+ "C:/sports/rsssf/espana/2015-16/cup.txt"]
+["C:/sports/rsssf/espana/2010-11/1-liga.txt",
+ "C:/sports/rsssf/espana/2010-11/cup.txt",
+ "C:/sports/rsssf/espana/2011-12/1-liga.txt",
+ "C:/sports/rsssf/espana/2011-12/cup.txt",
+ "C:/sports/rsssf/espana/2012-13/1-liga.txt",
+ "C:/sports/rsssf/espana/2012-13/cup.txt",
+ "C:/sports/rsssf/espana/2013-14/1-liga.txt",
+ "C:/sports/rsssf/espana/2013-14/cup.txt",
+ "C:/sports/rsssf/espana/2014-15/1-liga.txt",
+ "C:/sports/rsssf/espana/2014-15/cup.txt",
+ "C:/sports/rsssf/espana/2015-16/1-liga.txt",
+ "C:/sports/rsssf/espana/2015-16/cup.txt"]
+==> [1/12] reading >C:/sports/rsssf/espana/2010-11/1-liga.txt<...
+----
+up all 4 rsssf repos with (new) machinery (at,eng,es,br)
+
+---
+$  fbt ..\openfootball\worldcup
+OK   no parse errors found in 59 datafile(s)
+$  fbt ..\openfootball\euro
+!!   26 parse error(s) in 26 datafiles(s)
+
+Change to one message only
+!! WARN - no heading for 1 text paragraph(s); skipping parse
+!! WARN - no heading for 2 text paragraph(s); skipping parse
+!! WARN - no heading for 3 text paragraph(s); skipping parse
+!! WARN - no heading for 4 text paragraph(s); skipping parse
+---
+
+2008-09/1-bundesliga.txt -- parse error (RE) - skipping >1860< @19,23
+     in line >Greuther Fürth 1-0 1860<
+
+2006-07/cup.txt -- parse error (RE) - skipping >1/< @2,9
+     in line >1/8 Final< ??
+
+----
+ 
+[85 Pohlschmidt (Hamburger) m/pen]
+
+---
+more weird case
+1860 for Team Name  use TSV 1860 or 1860 München
+
+
+for notes
+Hércules de Alicante CF   3-2 CD Alcoyano             
+  [aet; annulled, tie awarded to Alcoyano]
+in espana/2011-12/cup.txt
+
+add notes
+
+note supported for now
+
+Hannover        1-5     Bremen
+  0:1-0:2 Valdez 8, 37, 0:3 Klasnic 41, 1:3 Stajner 55, 1:4 Klasnic 79,
+  1:5 Ernst 87.
+
+try auto-wrap in [] !!! e.g.
+  0:1 Pizarro 14, 0:2 Elber 78.
+[Aug 27]
+Hannover        3-3     Rostock
+  1:0 Christiansen 16, 1:1-1:2 Max 43, 63,
+  2:2 Christiansen 66, 3:2 Simak 71, 3:3 Vorbeck 93.
+
+see 2003-24/1-bundesliga.txt     
+  starts line with   \d:\d  dnds with .
+
+---
+
+
+==> [20/89] reading >C:/sports/rsssf/deutschland/2019-20/cup.txt<...
+  = Heading 1 >DFB Pokal 2019/20<
+  !! WARN - parse error (RE) - skipping >:< @3,4 in line >NB: 1.FC Saarbrücken are the first club ever to reach the cup semifinals while<
+
+
+check
+Real Madrid CF            o/w Cádiz CF   
+ check for score status ???
+
+
+
+(18' Draxler, 22' Huntelaar, 42' Höwedes, 55' Jurado, 70' Huntelaar)
+  =>
+[Draxler 18', Huntelaar 22', Höwedes 42', Jurado 55', Huntelaar 70']
+
+
+Osnabrück              awd RB Leipzig             [awarded 0-2; abandoned at 1-0 in 71'
+Sankt Pauli            1-4 Borussia M'gladbach     after referee was hit by lighter]
+
+
+Bochum          0-2 Mönchengladbach [abandoned at 0-2 in 70' due to crowd
+[Mar 19]                             ⮑trouble; result stood]
+[Mar 19]                             … trouble; result stood]
+[Mar 19]                             .. trouble; result stood]
+[Mar 19]                             ... trouble; result stood]
+
+“⮑” U+2B91 Return Right Unicode Character
+log open notes to logs.txt !!!!
+
+=>
+
+note_begin / note_start / note_1st / note_first
+note_cont ## if no end marker ]
+note_end
+
+move to rsssf parser notes!!!
+
+----
+
+- [x] update rsssf Deutschland (Germany) with Archive pages
+- [x] start an ERRATA.md   page on website
+- [ ] push new rsssf gem
+
+---
+
+England
+
+
+skip line with match Details too
+
+#### Premier League  ‹§premier›
+
+
+**‹Premier League 2015/16 Match Details, see page eng2016det›**
+
+
+---
+
+fix (meta) root in cocos!!! (no lib!!) see
+cocos/0.3.1 on Ruby 3.2.2 (2023-03-30) [x64-mingw-ucrt] in (C:/prg/ri32x/lib/ruby/gems/3.2.0/gems/cocos-0.3.1/lib) 
+
+
+---
+word Separators from visual code Settings
+
+-->    `~!@#$%^&*()-=+[{]}\|;:'",.<>/?
+
+
+-----
+
+use linter for new readme
+
+- Show   (unique) rounds, 
+          scores, vs (n
+         (unique) Teams
+         (unique) players
+          goal minutes         
+--
+
+
+too rsssf notes  - more rsssf scripts
+- add <https://github.com/tiagobbatalhao/FootballAnalysis/blob/master/DataDownloading.py>
+
+---
+
+see 
+more (quick) auto-fixes
+
+    
+Ademilson 49", 
+João Paulo 37",
+[Maikon Leite 50'; Thiago Ribeiro 40",
+
+ 40"  => 40'  (Change  "before number
+           and followed by , (or space?) to ' (assume Minute"
+
+----
+check 
+
+Auto fix   \b0'\d\d"  to \d\d' ???
+
+in "brazil\\2015\\1-seriea.txt
+  "parse error - skipping >0'45\"< @36,37",
+  " [Paulinho 49'; Anderson Lopes 0'45\", Roberto 78']"],
+ ["brazil\\2015\\1-seriea.txt",
+  "parse error - skipping >0'55\"< @21,22",
+  " [Diego Olivera 0'55\", Tiago Alves 38', Borges 76']"],
+ ["brazil\\2015\\1-seriea.txt",
+  "parse error - skipping >0'48\"< @21,22",
+  " [Gabriel Jesus 0'48\", 67', Dudu 23'; Marcelinho Paraíba 26',27']"],
+ ["brazil\\2015\\1-seriea.txt",
+  "parse error - skipping >0'25\"< @22,23",
+  " [Fred 79'; Juan 0'25\", João Paulo 45'+2', Henrique Almeida 90'+3']"]]
+!!   4 parse error(s) in 1 datafiles(s)
+
+
+
+----
+year in date!!!
+see https://github.com/rsssf/brazil/blob/master/tables/braz2020.txt
+1st Leg [Feb 28, 2021]
+Grêmio/RS                 0-1  Palmeiras/SP
+
+2nd Leg [Mar 7, 2021]
+Palmeiras/SP              2-0  Grêmio/RS
+
+
+[Apr 11, 2021, Brasília]
+
+
+
+----
+
+rsssf
+- add autofix for [Date , Geo Geo]
+- add/reuse expand path???
+
+----
+
+
+more rsssf format notes
+-   auto-fix/convert alternate goals Format (see de cup etc. ???)  
+      (12' Gerd Müller) 
+
+----
+
+move to notes !!!! in parser-rsssf !!!
+
+add to stage?
+## Playoff Stage
+## collect more stages???
+## Path A  - use path? or stage too? or stage_path?
+## Path B
+
+AFC/CONMEBOL Playoff
+
+Round 2 Replays
+Round 3 Replays
+Round 5 Replay
+
+
+- like leg - add replay or  round_replay -- replay(s)
+-            add round_      # nachtrag - use postponed??
+
+
+---
+date with venue   - support ??  
+
+
+
+## add  preprocess - "auto-fix" pass 0 !!!!
+  -  Final [May 30, Ernst Happel Stadion, Wien]
+Change line to
+    -  Final [May 30] Ernst Happel Stadion, Wien
+
+
+Austria:
+-  Final [May 30, Ernst Happel Stadion, Wien]
+-  Final [May 18, Klagenfurt]
+-  Final [Jun 3, Klagenfurt]
+Germany:
+-  Final [May 30, Berlin]
+-  Final [May 17, Berlin]
+England
+-  [Apr 16, London]
+-  [Apr 17, London]
+-  [May 14, London]
+Spain:
+-  [Apr 20, Estadio Mestalla, Valencia]
+-  [May 30, Barcelona]
+
+
+---
+
+
+Available fixtures status
+
+SHORT	LONG	TYPE	DESCRIPTION
+TBD	Time To Be Defined	Scheduled	Scheduled but date and time are not known
+NS	Not Started	Scheduled	
+1H	First Half, Kick Off	In Play	First half in play
+HT	Halftime	In Play	Finished in the regular time
+2H	Second Half, 2nd Half Started	In Play	Second half in play
+ET	Extra Time	In Play	Extra time in play
+BT	Break Time	In Play	Break during extra time
+P	Penalty In Progress	In Play	Penaly played after extra time
+SUSP	Match Suspended	In Play	Suspended by referee's decision, may be rescheduled another day
+INT	Match Interrupted	In Play	Interrupted by referee's decision, should resume in a few minutes
+FT	Match Finished	Finished	Finished in the regular time
+AET	Match Finished	Finished	Finished after extra time without going to the penalty shootout
+PEN	Match Finished	Finished	Finished after the penalty shootout
+PST	Match Postponed	Postponed	Postponed to another day, once the new date and time is known the status will change to Not Started
+CANC	Match Cancelled	Cancelled	Cancelled, match will not be played
+ABD	Match Abandoned	Abandoned	Abandoned for various reasons (Bad Weather, Safety, Floodlights, Playing Staff Or Referees), Can be rescheduled or not, it depends on the competition
+AWD	Technical Loss	Not Played	
+WO	WalkOver	Not Played	Victory by forfeit or absence of competitor
+LIVE	In Progress	In Play	Used in very rare cases. It indicates a fixture in progress but the data indicating the half-time or elapsed time are not available
+Fixtures with the status TBD may indicate an incorrect fixture date or time because the fixture date or time is not yet known or final. Fixtures with this status are checked and updated daily. The same applies to fixtures with the status PST, CANC.
+
+The fixtures ids are unique and specific to each fixture. In no case an ID will change.
+
+Not all competitions have livescore available and only have final result. In this case, the status remains in NS and will be updated in the minutes/hours following the match (this can take up to 48 hours, depending on the competition).
+
+match Status 
+ see -> https://www.api-football.com/documentation-beta#tag/Fixtures/operation/get-fixtures
+
+ - add to notes/readme
+
+
+---
+
+##
+## - use/add typed flag
+
+
+##
+##  for reporting skipping parse error
+##    use inspect  to Show tabs (\t) and such!!! 
+
+
+## add deps to sportdb-parser
+    -  season-format!!
+    -  cocos!!!
+
+--
+fix  fbt
+  args  --  gsub ( \ to / in path)!!!
+   ..\openfootball\euro - will NOT work for find!!!
+--
+
+
+##
+#   - if parser (mode) - Report text nodes as Errors!!!
+#
+
+##
+##  add Dates ?? (for plus - +)
+##     Di+Mi Feb/14+15 & 21+22 2012
+##     Di+Mi Feb/14+15 & 21+22
+##     Di+Mi March/6+7 & 13+14 2012
+##     Di+Mi March/6+7 & 13+14
+
+
+
+###
+## tokenize - add a typed flag
+###   
+###  [:num, "(50)"]
+##       changed to 50 (integer)
+##
+##   time - check if in range
+##            21:00   (e.g. 25:00  throws TypeError!!!)
+##
+###  Minute     
+##
+##   [:minute, "18'"],   to  minute: 18, offset: nil
+##  [:pen, "(pen.)"]   =>   to [':pen'] only
+##
+##  etc.
+
+----
+
+add a ascii analyzers - switch
+  -   report counts of all non-ascii-7 chars - less than 128 (0-127)
+   
+report for non-break space,  tabs
+             "fancy" dashes (see copa-america)
+
+----
+
+
+fix - worlcup parse Errors  ( tabs and more??)
+
+\u{A0}  - no-break space  -- change to "vanilla" ascii
+
+
+ruby -I ./lib bin/fbt ../../../openfootball/worldcup --verbose
+
+----
+date - parse
+return
+year   -2006  (nil
+month  - 11
+day    - 21
+weekday  - 4  (0 = Monday)
+
+
+--
+add a comment to Duration
+    find a better Name (range, period, …) - why? why not?
+
+---
+add to timezones comments
+us time zones
+Eastern  = (UTC-5, "Eastern",  "EST", "EDT")
+Central  = (UTC-6, "Central",  "CST", "CDT")
+Mountain = (UTC-7, "Mountain", "MST", "MDT")
+Pacific  = (UTC-8, "Pacific",  "PST", "PDT")
+---
+
+score - parse
+return
+ ht/ft/et/p  - Array?
+  use ft: ht: et: p:  hash ??
+
+---
+
+Export
+  slug summary
+    match count, page title,  team count, round count,  rounds  
+
+----
+fix in us!!
+
+[015]    2022-04-07 | 01:00 | West Chester United Predators | AC Syracuse Pulse      | 1-0 n.V.
+!! ERROR - unsupported score format >1-0 n.V.< - sorry; maybe add a score error fix/patch
+
+----
+
+get a list of all rounds (with count)
+
+----
+
+fix   remove mx.3 !!!! in /world2 !!
+----
+
+fix
+ gr.1 2023/24
+
+[151] 22. Spieltag => 22
+[151]    2024-02-10 | 18:30 | Panetolikos            | Atromitos              | 1-0 (1-0)
+
+[152] 22. Spieltag => 22
+[152]    2024-02-11 | 15:00 | AE Kifisias            | Volos NFC              | 3-0 (0-0, 0-0) Wert.
+!! ERROR - unsupported score format >3-0 (0-0, 0-0) awd.< - sorry; maybe add a score error fix/patch
+
+----
+
+
+use a new repo  /world2 or /quick /worldx /world-ii or /world_v2 or /world_alt or ???
+
+
+Export worldfootball pages  to Football.txt Format
+
+   auto-convert slugs:
+        and Change Country code to 1- ???  
+   - mex-primera-division-2001-2002-invierno
+   - mex-liga-de-expansion-2022-2023-clausura-playoffs 
+   - mex-copa-mx-2015-2016-apertura
+         => mexico/2001-02/1_primera-division@invierno.txt
+         => mexico/2022-23/2_liga-de-expansion@clausura-playoffs.txt
+         => mexico/2015-16/cup_copa-mx@apertura.txt
+         => mexico/2001-02/1_primera-division~invierno.txt
+         => mexico/2022-23/2_liga-de-expansion~clausura-playoffs.txt
+         => mexico/2015-16/cup_copa-mx~apertura.txt
+      find Season (e.g. 2001-2002)
+ 
+-- check how to parse/split title into league Name and stage
+
+----
+
+worldfootball - try auto-convert with stage - possible?
+     - if no stage defined - assume regular (season)
+
+use a script for slug to Seasons??
+try Austria - at.1 & at.2 & at.cup  first - why? why not?
+try Mexico    mx.1/2/3 & mx.cup 
+
+----
+
+check quickstarter fr (now in europe/France)
+
+#  use
+#    $ sportdb new fr2024-25
+
+
+----
+
+fix-up at - 
+[016] 1. Runde
+[016]    2023-07-22 | 17:00 | FV Austria XIII        | USV St. Anna           | 3-4 (3-4, 4-4, 4-4) i.E.
+
+[017] 1. Runde
+[017]    2023-07-22 | 17:30 | SV Leobendorf          | SV Horn                | 3-2 (2-0, 2-2, 3-2) n.V.
+!! ERROR - unsupported score format >3-2 (2-0, 2-2, 3-2) n.V.< - sorry; maybe add a score error fix/patch
+
+----
+
+
+1 error(s) - teams:
+["FC St. Pauli 1910 > Germany"]
+-
+25 error(s) - teams:
+["SV Dellach/Gail > Austria",
+ "SV Fügen > Austria",
+ "ATUS Velden > Austria",
+ "SC Admira Dornbirn > Austria",
+ "SC Korneuburg > Austria",
+ "SV Donau Wien > Austria",
+ "SV Frauental > Austria",
+ "SV Wildon > Austria",
+ "Sportunion Mauer > Austria",
+ "Sportunion St. Martin/M. > Austria",
+ "Union Dietach > Austria",
+
+ "FC Teutonia 05 > Germany",
+ "TSV Schott Mainz > Germany",
+ "1. FC Phönix Lübeck > Germany",
+ "FC Gütersloh > Germany",
+ "Greifswalder FC > Germany",
+ "Rostocker FC > Germany",
+ "SV Oberachern > Germany",
+ "TSG Balingen > Germany",
+ "TuS Bersenbrück > Germany",
+ "TuS Makkabi Berlin > Germany",
+ "VfV Hildesheim > Germany",
+ "Dorking Wanderers > England",
+ "Fortaleza - CE > Brazil",
+ "Goiás - GO > Brazil"]
+----
+
+- [ ] convert it/es  (de!!/at) etc. to all english format
+
+----
+
+- [ ] Weekly tipp3 update!! (on Wednesday)
+------
+
+- [ ] try euro dataset
+       https://www.kaggle.com/datasets/piterfm/football-soccer-uefa-euro-1960-2024/data
+
+----
+
+try update /europe
+- [ ] for 2023/24 or 2024   and 2020/21 or 2020
+    
+
+---
+
+add Club.match_by, find_by etc !!!!
+
+----
+
+- [x] add generator interface (same as Image gen) for fbgen
+         e.g. fbgen -t wfb at.1 2024/25
+              fbgen -t fbdat eng.1 2024/25
+- [x] add wfb  command line 
+- [x] add fbdat command line
+
+-----------
+
+- [ ]  check how stages work in writer  - Name equal to stages in worldfootall pages???
+
+
+----
+- [ ] add new simple wfb/up2?? tool  - -d/--download  args de.cup (or  2023/24
+         wfb de.cup  [2023/24]   ## for cut-off new Season use 30/7 (start with aug/1st or july/1st?  - check for uefa (default) contract  date 
+
+- [x] try add de.cup with worldfootball
+        use stage.worldfootball/
+- [x] change stage/ to cache.api.fbdat/  - why? why not?
+
+----
+
+- [ ] add more pp (pretty print) output for structs - clubs!!!!
+        - leagues!! cities!!!
+
+
+----
+
+-- factbook  (for Clone add Depth Option!!!
+   use   git Clone --depth=1  !!!
+
+----
+
+- [x] fix  optional num for match numbers !!! 
+
+- [x] fix  SCO-HUN json gen??  missing Goals - why? why not?
+[-; Csoboth 90+10']
+
+- [x] Offset is two Digits!!! Maybe not yet supported!!!
+
+"team1": {
+            "name": "Scotland",
+            "code": "SCO"
+          },
+          "team2": {
+            "name": "Hungary",
+            "code": "HUN"
+          },
+          "score": {
+            "ft": [
+              0,
+              1
+            ],
+            "ht": [
+              0,
+              0
+            ]
+          },
+---
+
+fix - monos!!!
+    use MOPATH env if present  (e.g. /sports) !!!
+
+----
+
+fix - flowfile - use genjson json   step too
+    - try local run with MOPATH=/sports !!!!   possible
+
+
+----
+- fix-up   football-clubs gem using new db machinery - why? why not?
+
+----
+ - [x] sportdb-readers  1.1.2 -> 1.2.0
+ - [x] sportdb-sync     1.1.3 -> 1.2.0
+ - [x] sportdb-models   2.0.3 -> 2.1.0
+---
+
+- [x] build & publish footballdb-data  (with catalogs.db)
+- [x] build/make  footballdb-data gem
+                    
+---
+
+- [x] add new lineup reader (or generic property/attribute reader) !!!
+      - skip lineups for now (sorry)
+
+----
+
+- [ ] consolidate json generation (and github update) scripts !!!!!
+
+----
+
+add venues inline format ??
+ - lets you use city only for match - no need to repeat stadium !!!
+
+e.g.
+Venues |     @
+       |     @ 
+       |
+       |
+       |
+
+e.g https://rsssf.org/tables/2023gc.html
+
+----------
+
+- [x] add copa america 2021 in brazil ???
+      - [x] add squads 2024 ??? 
+      - [ ] check score on penalty (no extra time???) in copa - yes, no? 
+        - NB: no extra time played after draw!!!
+        - add comment before round!! e.g. # note - no extra time played after draw
+- [x] add lineups
+
+- https://rsssf.org/tables/2021e-det.html
+- name [a-z0-9'-]:    until line ends with dot (.)!!!!!!
+ e.g.  
+ England:  Jordan Pickford - Kyle Walker, John Stones, Harry Maguire, Luke Shaw
+             (Kieran Trippier 65') - Kalvin Phillips (Jude Bellingham 65'), Declan Rice
+                    (Jordan Henderson 57') -  Jadon Sancho, Mason Mount, Raheem Sterling
+                    ( Marcus Rashford 65'); 9 Harry Kane (18 Dominic Calvert-Lewin 73').
+
+  for cards add [Y 97']  or [Y]  !!!! 
+
+-------------
+
+- [x]  to sports search add -     match_by( name:, league: )!!!  add league!!!
+               see in catalog find_countries_by_league   - move to match_by!!!!!!!!!
+
+- [x]  add clubs match support with multiple countries   (use sqlite IN !!!)
+
+- [x]  update club squads to NEW format
+- [ ]  add ground/city lookup ???
+- [ ] add some more footballdata (missing) club names variants
+
+---
+
+sqlite - use cast( as int)  for year!!!!!
+
+----
+
+note - copa america starts fri jun 21st!!!  arg - can!!!
+- [x]  add squads to copa america
+
+
+----
+
+- [ ]  add a search api to clubs (or leagues)??   ???
+          will  use like '%q% for sql text query - why? why not?
+- [ ]  add club search with (closed) levenshtein distance (ld) matches !!!!!
+      - check for using ruby method as function in sqlite 
+      - try https://stackoverflow.com/questions/13939574/how-do-i-put-a-ruby-function-into-a-sqlite3-query
+
+-----
+- [x]  add players lookup by name (and opt country/nationality)
+         (double) check euro 2024 squads
+
+- [x] get euro 2024 squads from wikipedia 
+    -> https://en.wikipedia.org/wiki/UEFA_Euro_2024_squads
+
+- [x] try euro 2020/21 & update/fetch upstream wiki source - why? why not?
+     
+- [x] auto-fix  yes,  monaco to monaco country code from FRA ?
+
+- [x] try to check player names next 
+
+----
+
+- [ ] try again activerecord with establish_connect (for custom source) - why? why not?
+
+----
+
+check
+
+!!  missing match for team in  England - League One:
+   OK  Forest Green Rovers
+   !!  Forest Green Rovers Football Club
+   OK  Bournemouth
+   !!  Bournemouth & Boscombe Athletic Community Football Club
+
+
+!!  missing match for team in  Portugal - Primeira Liga:
+   OK  Belenenses
+   !!  Os Belenenses - Sociedade Desportiva de Futebol, SAD
+
+!!  missing match for team in  Hungary - Nemzeti Bajnokság I:
+   !!  Puskás Akadémia
+   OK  Puskás Ferenc Labdarugó Akadémia Felcsút
+   OK  Vasas
+   !!  Vasas Football Club
+   OK  Kecskemét
+   !!  Kecskeméti Testedző Egyesület
+   OK  Fehérvár
+   !!  Fehérvár Football Club
+
+!!  missing match for team in  Croatia - HNL:
+   !!  Rudeš
+   OK  Nogometni klub Rudeš
+
+!!!  - add li lookup to ch!!!
+!!  no match for team in  Switzerland - Super League:
+    Vaduz
+    Fußball Club Vaduz
+!!!  - add monace (mc) lookup to fr!!!
+!!  no match for team in  France - Ligue 1:
+    Monaco
+    Association Sportive de Monaco
+!!!  - add andorra (ad) lookup to es!!!
+!!  no match for team in  Spain - Segunda División:
+    Andorra
+    Futbol Club Andorra
+!!! - add wales (wal)  lookup to eng!!
+!!  no match for team in  England - Championship:
+    Swansea City
+    Swansea City Association Football Club
+
+
+!!  missing match for team in  Russia - Premier League:
+   OK  Torpedo Moscow
+   !!  Futbolniy Klub Torpedo Moscow
+OK  FC Ural  -  Futbolniy Klub Ural  =>  Ural Yekaterinburg
+OK  Zenit St. Petersburg  -  Futbolniy Klub Zenit (Sankt-Peterburg)  =>  Zenit St. Petersburg
+==> [18/31]  ru.1 2021/22 [3/4]...
+"FootballSquads - Russian Premier League - 2021/2022"
+   16 team(s)
+OK  Akhmat Grozny  -  Republikanskiy Futbolniy Klub Akhmat (Grozny)  =>  Akhmat Grozny
+!!  missing match for team in  Russia - Premier League:
+   OK  Arsenal Tula
+   !!  Futbolniy Klub Arsenal Tula
+OK  CSKA Moscow  -  Professionalniy Futbolniy Klub Tsentralniy Sportivniy Klub Armii (Moskva)  =>  PFC CSKA Moskva
+OK  Dynamo Moscow  -  Futbolniy Klub Dynamo (Moskva)  =>  Dynamo Moskva
+!!  missing match for team in  Russia - Premier League:
+   OK  FC Khimki
+   !!  Futbolniy Clyb Khimki
+OK  FC Krasnodar  -  Futbolniy Klub Krasnodar  =>  FC Krasnodar
+OK  Krylia Sovetov  -  Professionalniy Futbolniy Klub Krylia Sovetov (Samara)  =>  PFC Krylya Sovetov Samara
+OK  Lokomotiv Moscow  -  Futbolniy Klub Lokomotiv (Moskva)  =>  Lokomotiv Moskva
+!!  missing match for team in  Russia - Premier League:
+   OK  FC Nizhny Novgorod
+   !!  Futbolniy Klub Nizhny Novgorod
+OK  FC Rostov  -  Futbolniy Klub Rostov (Rostov-na-Donu)  =>  FC Rostov
+OK  Rubin Kazan  -  Futbolniy Klub Rubin (Kazan)  =>  FC Rubin Kazan
+OK  PFC Sochi  -  Professionalniy Futbolniy Klub Sochi  =>  PFC Sochi
+OK  Spartak Moscow  -  Futbolniy Klub Spartak (Moskva)  =>  FC Spartak Moskva
+!!  missing match for team in  Russia - Premier League:
+   OK  FC Ufa
+   !!  Futbolniy Klub Ufa
+OK  FC Ural  -  Futbolniy Klub Ural  =>  Ural Yekaterinburg
+OK  Zenit St. Petersburg  -  Futbolniy Klub Zenit (Sankt-Peterburg)  =>  Zenit St. Petersburg
+==> [18/31]  ru.1 2020/21 [4/4]...
+"FootballSquads - Russian Premier League - 2020/2021"
+   16 team(s)
+OK  Akhmat Grozny  -  Republikanskiy Futbolniy Klub Akhmat (Grozny)  =>  Akhmat Grozny
+!!  missing match for team in  Russia - Premier League:
+   OK  Arsenal Tula
+   !!  Futbolniy Klub Arsenal Tula
+OK  CSKA Moscow  -  Professionalniy Futbolniy Klub Tsentralniy Sportivniy Klub Armii (Moskva)  =>  PFC CSKA Moskva
+OK  Dynamo Moscow  -  Futbolniy Klub Dynamo (Moskva)  =>  Dynamo Moskva
+!!  missing match for team in  Russia - Premier League:
+   OK  FC Khimki
+   !!  Futbolniy Clyb Khimki
+OK  FC Krasnodar  -  Futbolniy Klub Krasnodar  =>  FC Krasnodar
+OK  Lokomotiv Moscow  -  Futbolniy Klub Lokomotiv (Moskva)  =>  Lokomotiv Moskva
+OK  FC Rostov  -  Futbolniy Klub Rostov (Rostov-na-Donu)  =>  FC Rostov
+!!  missing match for team in  Russia - Premier League:
+   OK  Rotor Volgograd
+   !!  Sportivniy Klub Rotor
+OK  Rubin Kazan  -  Futbolniy Klub Rubin (Kazan)  =>  FC Rubin Kazan
+OK  PFC Sochi  -  Professionalniy Futbolniy Klub Sochi  =>  PFC Sochi
+OK  Spartak Moscow  -  Futbolniy Klub Spartak (Moskva)  =>  FC Spartak Moskva
+!!  missing match for team in  Russia - Premier League:
+   OK  FC Tambov
+   !!  Futbolniy Klub Tambov
+!!  missing match for team in  Russia - Premier League:
+   OK  FC Ufa
+   !!  Futbolniy Klub Ufa
+
+---
+
+- [ ] clean-up the footballsquad reader !!!
+- [x] update players export machinery - use birthdate etc.
+- [x] update football squads pages for national teams (world cup,euro)
+- [x]  read in all players and convert to new auto-generated/auto-update format!!!
+       - sort by birthdate (and name)
+- [x] update/try footballsquad players for euro and world cup
+- [x] sudan  is    SDN  (add alt  SUD ?) or auto-fix?
+- [x] mongolia is  MNG  (add alt  MGL ?) or auto-fix?
+---
+
+!!!! try install R (on windows) !!!!!!!
+
+---
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+add city_key / city  to match  (in addition to ground) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+---
+
+reorg leagues (a little!!!)
+for leagues - split names into names AND codes (like country)
+   - do NOT use  eng.1 for key?
+   - add tier attribute to league_season (formerly season)
+   -    lets you use different leagues for tier one  (premier league, football league, football league first division)
+   -   only "special" case for england (that tier changes minus one for all leagues?) 
+           or other countries too?
+   -  "special" case india - has two competing tier one leagues!!!
+           other countries too?
+
+   -  use eng.1.2021/22  key for LeagueSeason!!
+            plus premierleague_eng key for Premiere League
+        or world.2024
+        or euro.2024
+        or eng.cup.2021/22
+
+ keep Event (League+Tier+Season)  alias for LeagueSeason  - why? why not?
+
+to LeagueSeason - add country_key, tier (integer) - why? why not?
+      -  tier works for keys (sometime but not for 3a/3b/3c etc.)
+
+add more notes on Apertura/Clausura
+  https://en.wikipedia.org/wiki/Apertura_and_Clausura
+
+
+----
+
+- [ ]  check/fix for catalog query - always open sqlite in READONLY mode!!!!
+
+----------
+
+- [ ]  add team names as used in .txt (to event_teams table!!)
+- [ ]  add ground names as used in .txt (to event_grounds table!!)
+        - use ground only name (or all - plus city plus timezone etc.)
+
+--------------------------------
+  
+
+euro 2016 in france
+10 stadiums
+
+10 grounds (cities etc.):
+{"Stade de France, Saint-Denis"=>7,
+ "Stade Bollaert-Delelis, Lens"=>4,
+ "Parc des Princes, Paris"=>5,
+ "Stade Vélodrome, Marseille"=>6,
+ "Stade Pierre-Mauroy, Lille"=>6,
+ "Parc Olympique Lyonnais, Lyon"=>6,
+ "Nouveau Stade de Bordeaux, Bordeaux"=>5,
+ "Stadium Municipal, Toulouse"=>4,
+ "Stade Geoffroy-Guichard, Saint-Étienne"=>4,
+ "Allianz Riviera, Nice"=>4}
+
+12 grounds (cities etc.):
+{"München Fußball Arena, München"=>1,
+ "Köln Stadion, Köln"=>4,
+ "Stuttgart Arena, Stuttgart"=>4,
+ "Frankfurt Arena, Frankfurt"=>2,
+ "Olympiastadion, Berlin"=>3,
+ "BVB Stadion Dortmund, Dortmund"=>4,
+ "Volksparkstadion, Hamburg"=>4,
+ "Arena Auf Schalke, Gelsenkirchen"=>3,
+ "Düsseldorf Arena, Düsseldorf"=>3,
+ "Leipzig Stadion, Leipzig"=>3,
+ "München Football Arena, München"=>3,
+ "Waldstadion, Frankfurt"=>2}
+
+fix - two duplicates (variants)   - frankfurt and münchen!!!!
+
+12 grounds (cities etc.):
+{"Stadio Olimpico, Rome"=>4,
+ "Olympic Stadium, Baku"=>4,
+ "Parken Stadium, Copenhagen"=>4,
+ "Krestovsky Stadium, Saint Petersburg"=>7,
+ "Arena Națională, Bucharest"=>4,
+ "Johan Cruyff Arena, Amsterdam"=>4,
+ "Wembley Stadium, London"=>8,
+ "Hampden Park, Glasgow"=>4,
+ "La Cartuja, Seville"=>3,
+ "Puskás Aréna, Budapest"=>4,
+ "Allianz Arena, Munich"=>4,
+ "Estadio de La Cartuja, Seville"=>1}
+
+----------------
+indexer
+ - [x] use a "standard" api for all indexers
+       remove add records on init shortcut
+       use/add  Indexer.add()  
+
+grounds
+ - [x]  fix (more) stadium datasets/fixtures!!!
+
+ - [ ] match reader - add grounds (plus cities too) !!!!
+ - [ ] club reader - add ground - why? why not?
+       - fix - read grounds before clubs  in indexer!!!
+
+-----------
+(double) check league names for footballsquads
+  - [ ] https://www.footballsquads.co.uk/squads.htm
+
+-- [x] fix league index 
+   - autoadd upfront country to all names!!! e.g. England - /  Spain - etc.
+   
+-- [x] fix invalid date in be.1 in footballsquads!!!
+
+-- check - no names for turkey - Adana Demirspor  or Alanyaspor
+    - column name -> Namea  (check if present)  allow typo? add alt Namea!!!
+   - warn if cols missing!!!
+
+-- [x] add a club name check for footballsquads !!!
+   - check short and long (official) name
+
+-- [x] fix last club strip (use squish) e.g  - Montevideo City Torque ( has newline for example!!)
+22  Christopher Fiermarin (URU)    GK    # 01 Jan 1998, Rosario  -- Montevideo 
+
+City Torque
+
+-- [x] fix in italy why?
+ = Official Name: Associazione Calcio Reggiana 1919    # Reggiana
+
+
+---
+
+
+
+sportdb - try read / build  top 5  (eng,de,es,it,fr) 
+
+---
+
+
+reorg database schema
+-   use event_key   in matches WITHOUT event_id !!
+-   use season    in  event  - no more season tables !!
+-   use/add team1_key and team2_key instead of ids !!
+
+
+more reorg
+change Events  to LeagueSeasons
+   rm  Seasons 
+-- long term - remove event/events    (use League/LeagueSeasons)
+
+-- change match table - use composite keys - league_key, season
+    -- do NOT use event_key!!!
+
+----
+
+- [ ] check unaccent  - use for (auto-)keys in catalog!!!!
+                      - and maybe use for lookup by default - why? why not? 
+                      - try some unaccent samples (or tests) in sandbox/unaccent ???
+
+- [ ] check for time - how to store in db with activerecord (as string or ???)!!!
+- [ ] cl 2017/18  check for  time only on line  e.g.  20.45 etc
+- [ ] add support for goal line!!!
+        
+----
+
+- [ ]  add   catalog_path config!!!! and remove club_dir and league_dir!!!
+- [ ]  
+- [ ] add EventInfo (event - league+season  to catalog!!!
+
+
+- [ ] try euro 2021 and euro 2024  import with new machinery!!!
+      check for goals included / parsed - next ????
+
+- [ ] try change  autogen keys on clubs (and others)  with unaccent !!!!!
+
+
+----------------------------------
+
+- [ ]  euro import missing time !!!
+- [ ]  euro import missing stadiums !!!
+
+----
+bugs/features
+- allow/add to date formats  - pm/am for hours!!!
+ (1) Jun/20 8:00pm    Argentina      -   Canada  @ Mercedes-Benz Stadium, Atlanta, Georgia (UTC−4)
+
+-----
+short term
+- [x]  add support for time!!!
+long term
+- [x]  change catalog api to sqlite/db based (no need to parse builtins!)
+        use a new simple db schema for this setup!!! 
+
+- [x]  add support for stadiums back!!!
+
+- [x]  look into Copa America 2024 !!!
+
+- [ ]  try to get euro data from wikipedia page - possible ???
+
+
+-------------------------------------------
+retry "classic" data sources
+- https://www.football-data.co.uk/data.php
+- https://www.rubydoc.info/gems/footballdata-12xpert 
+
+
+---------------------------------------
+try to query (and cache) some data
+
+
+check available leagues via
+https://api.football-data.org/v4/competitions
+
+
+by daniel freitag (@dfrt82)
+Your free API-key for football-data.org
+
+
+thanks for registering for an API authentication token. 
+Please modify your client to 
+use a HTTP header named "X-Auth-Token" with the underneath personal token as value.
+
+Your API email: gerald.bauer@gmail.com
+Your API token: 2e3d1edaf149446e96aa9f98045c93c9
+Your API plan: Free Tier
+
+Quickstart guide:
+https://www.football-data.org/documentation/quickstart/
+
+Full API Documentation:
+https://www.football-data.org/documentation/api
+
+The complete competition coverage:
+https://www.football-data.org/coverage
+
+
+----
+move to notes - PARSER.md or such ??
+use a token parser with proper grammar for english - possible??
+collect keywords
+ 
+score 
+-  44-44 (do NOT use 44:44)
+
+dates
+- Mon/Tue/Wed/  or Mo/Tu/We/
+- Jan/Feb
+
+-  12:12 (hour)
+
+group (def
+- Group <A|B|C or 1|2| or A1?>
+matchday
+-  matchday / round ?
+-  1/8  | Final etc.
+

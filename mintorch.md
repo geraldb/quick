@@ -6,6 +6,13 @@
 
 ##  Micrograd & Friends
 
+
+### PyNorch
+
+<https://github.com/lucasdelimanogueira/PyNorch>
+
+
+
 ### Robingrad
 Something between Tinygrad and Micrograd <https://github.com/marcosalvalaggio/robingrad>
 

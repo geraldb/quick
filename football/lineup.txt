@@ -1,0 +1,55 @@
+try lineup format ??
+
+- [ ]  move notes here to   FORMATS.md in parser/  !!!
+
+
+use   [] [X] for yellow or red card inline  (73.[])  (73'Y)
+    -- find a (unicode) symbol for cards - why? why not?
+         - red/redyellow/yellow  ?? R/RY/Y
+
+---
+
+Deutschland v Schottland 5-1 (3-0)
+Fußball Arena München, 66.000 Zuschauer, SR Turpin (FRA)
+
+add goals here? 
+
+Deutschland: Neuer – Kimmich, Rüdiger, Tah, Mittelstädt – Andrich (46./Groß), Kroos (80. Can) – Musiala (74./Müller), Gündogan, Wirtz (63./Sane) – Havertz (63./Füllkrug)
+
+Schottland: Gunn - Porteous, Hendry, Tierney (78./McKenna) – Ralston, McTominay, McGregor (67./Gilmour), Robertson – Christie (82./Shankland), Adams (46./Hanley), McGinn (67./McLean)
+
+Rote Karte: Porteous (44./Foulspiel)
+
+Gelbe Karten: Andrich, Tah bzw. Ralston
+
+---
+
+Österreich v Frankreich 0-1 (0-1) 
+@ Düsseldorf Arena, att: 47000, ref: Gil Manzano (ESP)
+
+
+Österreich: Pentz – Posch, Danso, Wöber (59./Trauner), Mwene (88./Prass) – Seiwald, Grillitsch (60./Wimmer) – Laimer (91./Schmid), Baumgartner, Sabitzer – Gregoritsch (59./Arnautovic)
+
+Frankreich: Maignan – Kounde, Upamecano, Saliba, T. Hernandez – Griezmann (90./Fofana), Kante, Rabiot (71./Camavinga) – Dembele (71./Kolo Muani), Mbappe (90./Giroud), Thuram
+
+  - add minutes of yellow card possible??
+Gelbe Karten: Wöber, Mwene, Baumgartner, Laimer, Danso - Dembele, Mbappe
+
+---
+
+Portugal v Tschechien  2-1 (0-0) 
+
+Portugal: Costa – Dalot (63./Inacio), Pepe, Dias – Cancelo (90./Semedo), B. Silva, Fernandes, Vitinha (90./Conceicao), Mendes (90./Neto) – Ronaldo, Leao (63./Jota)
+
+Tschechien: Stanek – Holes (93./Chory), Hranac, Krejci – Coufal, Sulc (79./Sevcik), Soucek, Provod (79./Barak), Doudera – Kuchta (60./Lingr), Schick (60./Chytil)
+
+Gelbe Karten: Leao, Conceicao bzw. Schick
+
+
+add cards ("inline") possible??
+add - att(endance):   too
+and refere - why? why not?
+----
+
+
+

@@ -1,0 +1,247 @@
+Open AI (Compatible) API  - Chat Completions
+
+see <https://platform.openai.com/docs/api-reference/chat>
+
+HTTP JSON API ("RESTful") - Hello, World! Example:
+
+```
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+    "model": "gpt-4.1",
+    "messages": [
+      { "role":    "user",
+        "content": "Hello!"
+      }
+    ]
+  }'
+```
+
+note - two parameters required -  model and messages.
+
+
+or via Google gemini, see <https://ai.google.dev/gemini-api/docs/openai>
+
+```
+curl "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $GEMINI_API_KEY" \
+  -d '{
+    "model": "gemini-2.0-flash",
+    "messages": [
+        {"role": "user", 
+         "content": "Hello. What is the answer to life, the universe and everything?"}
+    ]
+    }'
+```
+
+What changed?
+
+- `api_key`="GEMINI_API_KEY": free (tier) key available via Google AI Studio sign-up
+- `base_url`="https://generativelanguage.googleapis.com/v1beta/openai/": This sends requests to Google's Gemini API instead of OpenAI's.
+- `model`="gemini-2.0-flash": Choose a Google ai model
+
+
+
+resulting in:
+
+
+```
+{"choices"=>[{"finish_reason"=>"stop", "index"=>0, 
+  "message"=>{
+    "content"=>"According to the supercomputer Deep Thought in Douglas Adams' *The Hitchhiker's Guide to the Galaxy*, the answer to the ultimate question of life, the universe, and everything is **42**.\n\nHowever, this answer is famously unsatisfying because no one knows what the actual question is!\n",
+    "role"=>"assistant"}}],
+  "created"=>1747313098, 
+  "model"=>"gemini-2.0-flash", 
+  "object"=>"chat.completion", 
+  "usage"=>{"completion_tokens"=>62, "prompt_tokens"=>14, "total_tokens"=>76}}
+```
+ 
+
+
+note - the chat completions API is "stateless", that is, with no memory (or chat history).
+
+for ("multi-turn") conversations store the returned messages and
+send back with next request:
+
+
+```
+curl "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer GEMINI_API_KEY" \
+  -d '{
+    "model": "gemini-2.0-flash",
+    "messages": [
+        {"role": "user", 
+         "content": "Hello. What is the answer to life, the universe and everything?"},
+        {"role": "assistant",
+         "content": ""According to the supercomputer Deep Thought in Douglas Adams' *The Hitchhiker's Guide to the Galaxy*, the answer to the ultimate question of life, the universe, and everything is **42**.\n\nHowever, this answer is famously unsatisfying because no one knows what the actual question is!\n""},
+        {"role": "user",
+         "content": "Thanks. What does it mean, any guess?"}, 
+    ]
+    }'
+```
+
+resulting in:
+
+```
+  {"choices"=>[{"finish_reason"=>"stop", "index"=>0, 
+   "message"=>{
+      "content"=>"That's the million-dollar question! Since the question is unknown, any interpretation of \"42\" is essentially just speculation and creative interpretation. Here are some of the more popular and amusing theories:\n\n*   **It's a placeholder:** Some believe it's simply a random number, a humorous commentary on the futility of seeking ultimate answers. Adams himself claimed he chose it because it \"seemed like a small, unassuming number.\"\n*   **Base 13:** Some have suggested that 42 in base 13 is equivalent to 6 x 9 which translates to \"sex times\".\n*   **Binary Code:** Others see significance in its binary representation, linking it to various computer science concepts.\n*   **Towel connection:** Many fans point to the importance of towels in the books, a number of calculations can lead you to 42 from the word \"towel\".\n*   **A Joke About Meaninglessness:** The most likely (and somewhat meta) interpretation is that it's a joke about the human desire for meaning and the inherent meaninglessness of existence. We want a profound answer, but we get something utterly banal.\n*   **The Author's Intention (or Lack Thereof):** Douglas Adams repeatedly stated that he chose the number at random. He said it was just a number that popped into his head and he didn't consciously attach any deep meaning to it.\n\nUltimately, the meaning of \"42\" is whatever you want it to be. That's part of the joke and the charm of *The Hitchhiker's Guide to the Galaxy*. The lack of a definitive answer encourages us to think critically, creatively, and perhaps not take ourselves too seriously in the search for meaning.\n", 
+       "role"=>"assistant"}}], 
+   "created"=>1747316586, 
+   "model"=>"gemini-2.0-flash", 
+   "object"=>"chat.completion", 
+   "usage"=>{"completion_tokens"=>361, "prompt_tokens"=>86, "total_tokens"=>447}}
+
+```
+
+
+bonus - battle of the chatbots - let's try Mistral 
+
+see <https://docs.mistral.ai/getting-started/quickstart/>
+
+```
+curl "https://https://api.mistral.ai/v1/chat/completions" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $MISTRAL_API_KEY" \
+  -d '{
+    "model": "mistral-medium-latest",
+    "messages": [
+        {"role": "user", 
+         "content": "Hello. What is the answer to life, the universe and everything?"}
+    ]
+    }'
+```
+
+resulting in:
+
+```
+{"id"=>"c1e8c73196df4529b715182a2a5628b1", 
+ "object"=>"chat.completion", 
+ "created"=>1747323133, 
+ "model"=>"mistral-medium-latest", 
+ "choices"=>[{"index"=>0, 
+  "message"=>{"role"=>"assistant", 
+               "tool_calls"=>nil, 
+               "content"=>"The answer to life, the universe, and everything is famously **42**, as revealed in Douglas Adams' science fiction series *The Hitchhiker's Guide to the Galaxy*. In the story, a supercomputer named Deep Thought calculates the answer after 7.5 million years of processing, but the characters are left puzzled because they don't know the actual *question* to which 42 is the answer.\n\nOf course, this is a humorous and philosophical take on the idea that some questions may not have simple or meaningful answers. In reality, the \"answer\" is often interpreted as a commentary on the absurdity of seeking definitive meaning in an unpredictable universe.\n\nWould you like a deeper dive into the philosophical implications, or are you just here for the meme? 😄"}, 
+    "finish_reason"=>"stop"}], 
+    "usage"=>{"prompt_tokens"=>17, "total_tokens"=>176, "completion_tokens"=>159}}
+```
+
+
+
+
+
+talk notes
+
+
+LMArena
+An Open Platform for Human Preference Evals
+https://blog.lmarena.ai/blog/
+
+
+
+
+llm Arena - battle of the models (chess-like - one vs one - with elo scores)
+
+compare  and v
+
+https://lmarena.ai
+
+use the prompt:
+can you generate a single-page chat app backed with the openai js api?
+bonus - add markdown rendering, chat history and more!
+
+
+round ii - use (new) webdev Arena !!!
+
+https://web.lmarena.ai
+
+What can I help you build today?
+
+
+
+round iii :-)
+
+can you generate a single-page chat app backed with the openai js api?
+bonus - add markdown rendering, chat history and more!  please, no react - keep it vanilla.
+
+
+
+ Single-Shot ?
+
+
+
+
+
+
+  Q: How can you evaluate the generated code by ai models?
+      or 
+  Q: How can you compare (& evaluate) the generated code of different ai models?
+
+
+a:  human eval still the best!  (yes, slow and expensive)
+
+
+ the "Simon Willison" method -> https://simonwillison.net  (great ai - llms blog / update / news)
+
+
+tips on (programming) with llms -> https://simonwillison.net/2025/Mar/11/using-llms-for-code/
+
+
+- a:  yes, you can. pick your own (test) project 
+       and try out different (code gen) models? 
+
+
+          => can you draw a pelican (riding a bicycle) - in svg (note - scalable vector graphics - an xml format)
+      (reference) prompt: "Generate an SVG of a pelican riding a bicycle"
+
+     see https://github.com/simonw/pelican-bicycle
+
+
+how about something more practical?
+    
+=> https://tools.simonwillison.net
+
+> Miscellaneous HTML+JavaScript tools I have built, almost all with the assistance of LLMs.
+
+This collection is partly an experiment in how much it’s possible to get done through prompting alone.
+
+
+
+https://tools.simonwillison.net/colophon#gemini-chat.html
+
+> This web application allows you to interact with Google's Gemini AI models through a simple chat interface. Users can select different Gemini model versions, send messages, and receive responses in real-time with markdown rendering support. The app requires a Gemini API key on first use and displays usage metadata and response time for each interaction.
+
+
+
+---
+
+
+
+Local AI Models
+
+https://ollama.com
+- ollama  (command line tool)
+
+
+
+Small Language Models   -  Microsoft Phi Series
+
+
+Tiny Language Models
+
+try
+!!!    https://ollama.com/library/qwen2.5:0.5b  !!!
+!!!    https://ollama.com/library/smollm2  !!!
+
+
+--
+test cors in ollama
+
+curl -X OPTIONS http://localhost:11434 -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" -I
+
+https://objectgraph.com/blog/ollama-cors/
+

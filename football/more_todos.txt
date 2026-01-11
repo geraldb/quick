@@ -1,0 +1,30 @@
+try Southamerican Championship 1916
+->  https://www.rsssf.org/tables/16safull.html
+
+
+
+to samples (Copa América 2007)
+add ->  https://www.rsssf.org/tables/2007sa.html
+
+-    Goal line - check again allow comma between Players e.g.
+             Giancarlo Maldonado 20', Ricardo Páez 55'; Jaime Moreno 38',
+             Juan Carlos Arce 83'
+  or
+             Hernán Crespo 20'(pen), Juan Román Riquelme 34', 45',
+             Diego Milito 90+1'; Edixon Perea 10', Jaime Castrillón 76'
+
+
+1- 7-07  Brazil     3-0 Chile                  [in Maturín]
+            [Robinho 36pen, 84, 87]
+1- 7-07  Mexico     2-1 Ecuador                [in Maturín]
+            [Nery Castillo 21, Omar Bravo 79; Edison Méndez 84]
+ 4- 7-07  Mexico     0-0 Chile                  [in Puerto La Cruz]
+becomes
+
+Jul 1    Brazil     3-0 Chile                 @ Maturín
+            Robinho 36'(pen) 84' 87'
+Jul 1    Mexico     2-1 Ecuador                @ Maturín
+            Nery Castillo 21' Omar Bravo 79'; Edison Méndez 84'
+Jul 4     Mexico     0-0 Chile                 @ Puerto La Cruz
+
+ 
